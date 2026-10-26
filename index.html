@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5f0">
+  <meta name="description" content="Àlex Fotografia Studio — fotografia, escrits, poesia i projectes creatius.">
+  <title>Àlex Fotografia Studio — Àlex Gálvez</title>
+  <style>
+    :root {
+      --paper: #f7f5f0; --ink: #171715; --muted: #6f6d67;
+      --line: rgba(23,23,21,.16); --accent: #b68d5d; --white: #fff;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Inter, "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); }
+    body.loading { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .intro {
+      position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center;
+      background: var(--paper); animation: introAway .9s ease 1.45s forwards;
+      pointer-events: none;
+    }
+    .intro-inner { text-align: center; animation: introMark 1s cubic-bezier(.2,.7,.2,1) both; }
+    .intro-word { font-size: clamp(3.5rem, 14vw, 8.5rem); font-weight: 800; letter-spacing: -.09em; line-height: .9; }
+    .intro-sub { margin-top: 18px; font-size: .78rem; letter-spacing: .28em; text-transform: uppercase; }
+    @keyframes introMark { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes introAway { to { opacity: 0; visibility: hidden; } }
+    .site-header {
+      position: sticky; top: 0; z-index: 50; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px; padding: 12px clamp(18px, 5vw, 72px);
+      background: rgba(247,245,240,.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 180px; }
+    .brand img { width: 54px; height: 54px; object-fit: contain; mix-blend-mode: multiply; }
+    .brand-name { font-weight: 800; letter-spacing: -.055em; font-size: 1.05rem; }
+    .brand-small { display: block; margin-top: 3px; color: var(--muted); font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; }
+    nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+    nav a { padding: 10px 12px; border-radius: 99px; font-size: .78rem; transition: background .25s, color .25s; }
+    nav a:hover, nav a:focus-visible { background: var(--ink); color: var(--white); outline: none; }
+    .hero { min-height: min(790px, calc(100svh - 78px)); display: grid; grid-template-columns: 1fr 1.12fr; gap: clamp(28px, 6vw, 90px); align-items: center; padding: clamp(38px, 7vw, 100px) clamp(20px, 8vw, 120px); }
+    .eyebrow { color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .23em; text-transform: uppercase; }
+    h1 { margin: 20px 0; font-family: var(--serif); font-size: clamp(3.5rem, 7.5vw, 7.5rem); font-weight: 400; letter-spacing: -.07em; line-height: .9; }
+    .hero-copy p { max-width: 460px; color: var(--muted); font-size: clamp(1rem, 1.35vw, 1.15rem); line-height: 1.8; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 19px; border: 1px solid var(--ink); border-radius: 99px; font-size: .82rem; transition: transform .25s, background .25s, color .25s; }
+    .button:hover { transform: translateY(-3px); background: var(--ink); color: var(--white); }
+    .button.dark { background: var(--ink); color: var(--white); }
+    .button.dark:hover { background: var(--accent); border-color: var(--accent); }
+    .hero-visual { position: relative; min-width: 0; }
+    .slideshow { position: relative; overflow: hidden; aspect-ratio: 4 / 5; max-height: 650px; background: #e4dfd5; border-radius: 3px; }
+    .slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.045); transition: opacity 1s ease, transform 6s ease; }
+    .slide.active { opacity: 1; transform: scale(1); }
+    .photo-note { position: absolute; right: -16px; bottom: 24px; background: var(--paper); padding: 14px 18px; font-family: var(--serif); font-size: 1.05rem; box-shadow: 0 12px 40px #00000012; }
+    .slide-dots { display: flex; gap: 8px; justify-content: center; padding-top: 17px; }
+    .slide-dots button { width: 8px; height: 8px; border: 0; padding: 0; border-radius: 50%; background: #c6c0b5; cursor: pointer; }
+    .slide-dots button[aria-current="true"] { background: var(--ink); transform: scale(1.25); }
+    .section { padding: clamp(72px, 10vw, 140px) clamp(20px, 8vw, 120px); border-top: 1px solid var(--line); }
+    .section-head { display: grid; grid-template-columns: .8fr 1.2fr; gap: 35px; align-items: start; margin-bottom: 48px; }
+    .section-number { color: var(--accent); font-size: .75rem; letter-spacing: .2em; }
+    h2 { margin: 10px 0 0; font-family: var(--serif); font-weight: 400; font-size: clamp(2.7rem, 5.7vw, 5.5rem); letter-spacing: -.06em; line-height: .98; }
+    .section-intro { max-width: 560px; margin: 8px 0 0; color: var(--muted); line-height: 1.85; }
+    .writing-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+    .writing-card { padding: clamp(24px, 4vw, 42px); min-height: 245px; border: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; transition: background .3s, transform .3s; }
+    .writing-card:hover { background: #fff; transform: translateY(-5px); }
+    .writing-card .tag { color: var(--accent); font-size: .7rem; text-transform: uppercase; letter-spacing: .17em; }
+    .writing-card h3 { margin: 26px 0 12px; font-family: var(--serif); font-size: clamp(1.7rem, 3vw, 2.7rem); font-weight: 400; }
+    .writing-card p { color: var(--muted); line-height: 1.7; }
+    .text-link { width: fit-content; margin-top: 18px; border-bottom: 1px solid var(--accent); padding-bottom: 5px; font-size: .82rem; }
+    .photo-grid { display: grid; grid-template-columns: 1.1fr .9fr 1fr; gap: 14px; align-items: start; }
+    .photo-tile { margin: 0; overflow: hidden; background: #e4dfd5; }
+    .photo-tile:nth-child(2) { margin-top: 70px; }
+    .photo-tile:nth-child(3) { margin-top: 28px; }
+    .photo-tile img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; transition: transform .8s; }
+    .photo-tile:hover img { transform: scale(1.04); }
+    .photo-tile figcaption { padding: 12px 3px 5px; color: var(--muted); font-size: .78rem; }
+    .collab-band { margin-top: 42px; padding: clamp(26px, 5vw, 55px); background: #e9e4da; display: flex; justify-content: space-between; align-items: center; gap: 28px; }
+    .collab-band h3 { margin: 0 0 8px; font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 3.5vw, 3rem); }
+    .collab-band p { max-width: 520px; margin: 0; color: var(--muted); line-height: 1.7; }
+    .services { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    .service { border-top: 1px solid var(--ink); padding: 24px 10px 10px 0; }
+    .service .index { color: var(--accent); font-size: .75rem; letter-spacing: .15em; }
+    .service h3 { font-family: var(--serif); font-size: clamp(1.5rem, 2.5vw, 2.3rem); font-weight: 400; margin: 26px 0 12px; }
+    .service p { color: var(--muted); line-height: 1.75; }
+    .contact-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: clamp(30px, 6vw, 70px); background: var(--ink); color: var(--paper); }
+    .contact-panel h2 { max-width: 600px; }
+    .contact-panel p { color: #c7c4bc; line-height: 1.8; }
+    .contact-panel .button { border-color: var(--paper); }
+    .contact-panel .button:hover { background: var(--paper); color: var(--ink); }
+    footer { padding: 34px clamp(20px, 8vw, 120px); display: flex; align-items: end; justify-content: space-between; gap: 25px; color: var(--muted); font-size: .78rem; }
+    footer strong { display: block; margin-bottom: 8px; color: var(--ink); font-size: .95rem; }
+    footer p { margin: 5px 0; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal.delay-1 { transition-delay: .12s; } .reveal.delay-2 { transition-delay: .24s; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+    @media (max-width: 800px) {
+      .site-header { align-items: flex-start; flex-direction: column; gap: 10px; padding: 10px 18px; }
+      .brand img { width: 42px; height: 42px; }
+      nav { justify-content: flex-start; width: 100%; gap: 2px; }
+      nav a { padding: 9px 10px; font-size: .72rem; }
+      .hero { grid-template-columns: 1fr; padding-top: 58px; }
+      .hero-visual { max-width: 600px; width: 100%; margin: 0 auto; }
+      .slideshow { aspect-ratio: 4 / 3; }
+      .photo-note { right: 8px; bottom: 12px; }
+      .section-head { grid-template-columns: 1fr; gap: 18px; }
+      .photo-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .photo-tile:nth-child(2), .photo-tile:nth-child(3) { margin-top: 0; }
+      .photo-tile:nth-child(3) { grid-column: span 2; width: 70%; }
+      .services { grid-template-columns: 1fr; gap: 25px; }
+      .contact-panel { grid-template-columns: 1fr; }
+      footer { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      .writing-grid { grid-template-columns: 1fr; }
+      .photo-grid { gap: 9px; }
+      .photo-tile:nth-child(3) { width: 100%; }
+      .collab-band { align-items: flex-start; flex-direction: column; }
+      .hero-actions .button { width: 100%; }
+    }
+  </style>
+</head>
+<body class="loading">
+  <div class="intro" aria-hidden="true">
+    <div class="intro-inner">
+      <div class="intro-word">alex.</div>
+      <div class="intro-sub">photography studio · since 2020</div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#inici" aria-label="Àlex Fotografia Studio, inici">
+      <img src="assets/logo.jpeg" alt="Logotip d'Àlex Fotografia Studio">
+      <span><span class="brand-name">Àlex Fotografia Studio</span><span class="brand-small">Photography · Words · Ideas</span></span>
+    </a>
+    <nav aria-label="Navegació principal">
+      <a href="#escrits">Escrits</a>
+      <a href="#poesia">Poesia</a>
+      <a href="#fotografia">Fotografia</a>
+      <a href="#serveis">Serveis</a>
+      <a href="#contacte">Contacte</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inici">
+      <div class="hero-copy reveal">
+        <div class="eyebrow">Una mirada, moltes històries</div>
+        <h1>Moments<br>que parlen.</h1>
+        <p>Un espai creatiu on conviuen la fotografia, les paraules i les idees. Un lloc per compartir mirades, descobrir històries i donar vida a nous projectes.</p>
+        <div class="hero-actions">
+          <a class="button dark" href="#fotografia">Descobreix la fotografia <span aria-hidden="true">↘</span></a>
+          <a class="button" href="#escrits">Explora el contingut</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal delay-1">
+        <div class="slideshow" aria-label="Galeria de fotografies">
+          <img class="slide active" src="assets/esglesia.jpg" alt="Campanar i església sota el cel blau">
+          <img class="slide" src="assets/bellmunt.jpg" alt="Santuari de muntanya envoltat de paisatge">
+          <img class="slide" src="assets/saltant.jpg" alt="Salt d'aigua entre roques i vegetació">
+          <img class="slide" src="assets/pont.jpg" alt="Pont de pedra sobre un rierol">
+        </div>
+        <div class="photo-note">Històries darrere la lent.</div>
+        <div class="slide-dots" aria-label="Selecciona una fotografia">
+          <button type="button" aria-label="Fotografia 1" aria-current="true"></button>
+          <button type="button" aria-label="Fotografia 2" aria-current="false"></button>
+          <button type="button" aria-label="Fotografia 3" aria-current="false"></button>
+          <button type="button" aria-label="Fotografia 4" aria-current="false"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="escrits">
+      <div class="section-head reveal">
+        <div><div class="section-number">01 / PARAULES</div><h2>Escrits<br>amb intenció.</h2></div>
+        <p class="section-intro">Les paraules també poden capturar moments. Aquest espai és per a reflexions, relats i textos que mereixen ser llegits sense pressa. Més endavant, aquí hi podràs publicar els teus escrits i els de les persones que vulguin col·laborar.</p>
+      </div>
+      <div class="writing-grid">
+        <article class="writing-card reveal">
+          <div><div class="tag">Relats · Reflexions</div><h3>Un espai per explicar</h3><p>Històries personals, idees i petits fragments de vida que troben el seu lloc a través de les paraules.</p></div>
+          <a class="text-link" href="mailto:galvezballesteros@gmail.com?subject=Col·laboraci%C3%B3%20-%20Escrits">Proposa un escrit ↗</a>
+        </article>
+        <article class="writing-card reveal delay-1" id="poesia">
+          <div><div class="tag">02 / POESIA</div><h3>Paraules que ressonen.</h3><p>Poemes, versos i emocions posats sobre paper. Un racó per a la poesia pròpia i per a les veus que vulguin compartir-la.</p></div>
+          <a class="text-link" href="mailto:galvezballesteros@gmail.com?subject=Col·laboraci%C3%B3%20-%20Poesia">Comparteix poesia ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="fotografia">
+      <div class="section-head reveal">
+        <div><div class="section-number">03 / FOTOGRAFIA</div><h2>Mirar més<br>enllà.</h2></div>
+        <p class="section-intro">Paisatges, racons, arquitectura i instants que sovint passen desapercebuts. La galeria anirà creixent amb fotografies pròpies i, si t'hi animes, també amb imatges de persones que vulguin participar-hi.</p>
+      </div>
+      <div class="photo-grid">
+        <figure class="photo-tile reveal"><img src="assets/esglesia.jpg" alt="Església i campanar" loading="lazy"><figcaption>Arquitectura · Detalls del poble</figcaption></figure>
+        <figure class="photo-tile reveal delay-1"><img src="assets/saltant.jpg" alt="Salt d'aigua enmig de la natura" loading="lazy"><figcaption>Natura · Aigua i moviment</figcaption></figure>
+        <figure class="photo-tile reveal delay-2"><img src="assets/pont.jpg" alt="Pont antic de pedra" loading="lazy"><figcaption>Patrimoni · Històries de pedra</figcaption></figure>
+      </div>
+      <div class="collab-band reveal">
+        <div><h3>La teva mirada també hi té lloc.</h3><p>Vols compartir una fotografia a la web? Envia'm un missatge amb la imatge, el títol i el nom o pseudònim que vols que hi aparegui. La publicació es farà amb el teu consentiment.</p></div>
+        <a class="button dark" href="mailto:galvezballesteros@gmail.com?subject=Col·laboraci%C3%B3%20fotogr%C3%A0fica">Envia la teva foto ↗</a>
+      </div>
+    </section>
+
+    <section class="section" id="serveis">
+      <div class="section-head reveal">
+        <div><div class="section-number">04 / PROJECTES I ENCÀRRECS</div><h2>Petites idees,<br>fetes realitat.</h2></div>
+        <p class="section-intro">A banda de la fotografia, també preparo alguns encàrrecs creatius personalitzats. És un petit projecte independent, fet a petita escala i amb ganes de crear coses úniques.</p>
+      </div>
+      <div class="services">
+        <article class="service reveal"><div class="index">01 — PERSONALITZACIÓ</div><h3>Tasses personalitzades</h3><p>Idees, noms, fotografies o dissenys especials per convertir una tassa en un detall personal.</p></article>
+        <article class="service reveal delay-1"><div class="index">02 — PETITS DETALLS</div><h3>Clauers</h3><p>Clauers personalitzats per regalar, recordar un moment o portar un disseny sempre a prop.</p></article>
+        <article class="service reveal delay-2"><div class="index">03 — EDICIÓ</div><h3>Edició de fotografies</h3><p>Ajustos i retocs d'imatges per donar-los un acabat diferent o adaptar-les a una idea concreta.</p></article>
+      </div>
+      <div style="margin-top:35px" class="reveal"><a class="button" href="mailto:galvezballesteros@gmail.com?subject=Consulta%20sobre%20enc%C3%A0rrec">Consulta un encàrrec ↗</a></div>
+    </section>
+
+    <section class="section" id="contacte">
+      <div class="contact-panel reveal">
+        <div><div class="eyebrow">Parlem?</div><h2>Les bones idees comencen amb un missatge.</h2></div>
+        <div><p>Per col·laborar amb els escrits, compartir fotografies, consultar un encàrrec o simplement fer una pregunta, pots contactar amb mi directament per correu electrònic.</p><a class="button" href="mailto:galvezballesteros@gmail.com">Escriu-me un correu ↗</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>Àlex Fotografia Studio</strong><p>Àlex Gálvez · Fotografia · Escrits · Projectes creatius</p><p>Contacte: <a href="mailto:galvezballesteros@gmail.com">galvezballesteros@gmail.com</a></p><p>Instagram: <a href="https://www.instagram.com/Alex_Photography_Studio/" target="_blank" rel="noopener noreferrer">@Alex_Photography_Studio ↗</a></p></div>
+    <div><p>© 2026 Àlex Fotografia Studio. Tots els drets reservats.</p><p>Les imatges i els continguts pertanyen als seus autors.</p><p>Fet amb cura i creativitat.</p></div>
+  </footer>
+
+  <script>
+    // Amaga la pantalla d'entrada quan s'acaba l'animació.
+    window.addEventListener('load', () => {
+      setTimeout(() => document.body.classList.remove('loading'), 1500);
+    });
+
+    // Galeria automàtica: canvia de fotografia cada 5 segons.
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const dots = Array.from(document.querySelectorAll('.slide-dots button'));
+    let currentSlide = 0;
+    let slideshowTimer;
+    function showSlide(index) {
+      currentSlide = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === currentSlide));
+      dots.forEach((dot, i) => dot.setAttribute('aria-current', i === currentSlide ? 'true' : 'false'));
+    }
+    function restartSlideshow() {
+      clearInterval(slideshowTimer);
+      slideshowTimer = setInterval(() => showSlide(currentSlide + 1), 5000);
+    }
+    dots.forEach((dot, index) => dot.addEventListener('click', () => { showSlide(index); restartSlideshow(); }));
+    restartSlideshow();
+
+    // Aparició suau dels apartats en entrar a la pantalla.
+    const revealItems = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach(item => observer.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
