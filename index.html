@@ -1,11 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="ca">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f5f0">
-  <meta name="description" content="Àlex Fotografia Studio — fotografia, escrits, poesia i projectes creatius.">
-  <title>Àlex Fotografia Studio — Àlex Gálvez</title>
+  <meta name="description" content="Alex Photography Studio™ — fotografia, escrits, poesia i projectes creatius.">
+  <title>Alex Photography Studio™ — Àlex Gálvez</title>
   <style>
     :root {
       --paper: #f7f5f0; --ink: #171715; --muted: #6f6d67;
@@ -135,9 +136,9 @@
   </div>
 
   <header class="site-header">
-    <a class="brand" href="#inici" aria-label="Àlex Fotografia Studio, inici">
-      <img src="assets/logo.jpeg" alt="Logotip d'Àlex Fotografia Studio">
-      <span><span class="brand-name">Àlex Fotografia Studio</span><span class="brand-small">Photography · Words · Ideas</span></span>
+    <a class="brand" href="#inici" aria-label="Alex Photography Studio™, inici">
+      <img src="assets/logo.jpeg" alt="Logotip d'Alex Photography Studio™">
+      <span><span class="brand-name">Alex Photography Studio™</span><span class="brand-small">Photography · Words · Ideas</span></span>
     </a>
     <nav aria-label="Navegació principal">
       <a href="#escrits">Escrits</a>
@@ -231,8 +232,17 @@
   </main>
 
   <footer>
-    <div><strong>Àlex Fotografia Studio</strong><p>Àlex Gálvez · Fotografia · Escrits · Projectes creatius</p><p>Contacte: <a href="mailto:galvezballesteros@gmail.com">galvezballesteros@gmail.com</a></p><p>Instagram: <a href="https://www.instagram.com/Alex_Photography_Studio/" target="_blank" rel="noopener noreferrer">@Alex_Photography_Studio ↗</a></p></div>
-    <div><p>© 2026 Àlex Fotografia Studio. Tots els drets reservats.</p><p>Les imatges i els continguts pertanyen als seus autors.</p><p>Fet amb cura i creativitat.</p></div>
+    <div>
+      <strong>Alex Photography Studio™</strong>
+      <p>Àlex Gálvez · Fotografia · Escrits · Projectes creatius</p>
+      <p>Contacte: <a href="mailto:galvezballesteros@gmail.com">galvezballesteros@gmail.com</a></p>
+      <p>Instagram: <a href="https://www.instagram.com/alex_photography_studio/" target="_blank" rel="noopener noreferrer">@alex_photography_studio ↗</a></p>
+    </div>
+    <div>
+      <p>© 2026 Alex Photography Studio™. Tots els drets reservats.</p>
+      <p>Les imatges i els continguts pertanyen als seus autors.</p>
+      <p>Fet amb cura i creativitat.</p>
+    </div>
   </footer>
 
   <script>
@@ -246,20 +256,27 @@
     const dots = Array.from(document.querySelectorAll('.slide-dots button'));
     let currentSlide = 0;
     let slideshowTimer;
+
     function showSlide(index) {
       currentSlide = (index + slides.length) % slides.length;
       slides.forEach((slide, i) => slide.classList.toggle('active', i === currentSlide));
       dots.forEach((dot, i) => dot.setAttribute('aria-current', i === currentSlide ? 'true' : 'false'));
     }
+
     function restartSlideshow() {
       clearInterval(slideshowTimer);
       slideshowTimer = setInterval(() => showSlide(currentSlide + 1), 5000);
     }
-    dots.forEach((dot, index) => dot.addEventListener('click', () => { showSlide(index); restartSlideshow(); }));
+
+    dots.forEach((dot, index) => dot.addEventListener('click', () => {
+      showSlide(index);
+      restartSlideshow();
+    }));
     restartSlideshow();
 
     // Aparició suau dels apartats en entrar a la pantalla.
     const revealItems = document.querySelectorAll('.reveal');
+
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
@@ -269,6 +286,7 @@
           }
         });
       }, { threshold: 0.12 });
+
       revealItems.forEach(item => observer.observe(item));
     } else {
       revealItems.forEach(item => item.classList.add('visible'));
